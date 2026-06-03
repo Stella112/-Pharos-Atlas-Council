@@ -2,9 +2,15 @@
 
 import { stdin, stdout } from "node:process";
 import fs from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { reviewAction, runCouncil, scoreStrategies } from "../sdk/index.js";
 
-let buffer = "";
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const skillPath = resolve(repoRoot, "skills/pharos-atlas-council/SKILL.md");
+
+let buffer = Buffer.alloc(0);
+let responseFraming = "line";
 
 const tools = [
   {
@@ -52,11 +58,20 @@ const tools = [
 ];
 
 function respond(id, result) {
-  stdout.write(`${JSON.stringify({ jsonrpc: "2.0", id, result })}\n`);
+  writeJson({ jsonrpc: "2.0", id, result });
 }
 
 function fail(id, code, message) {
-  stdout.write(`${JSON.stringify({ jsonrpc: "2.0", id, error: { code, message } })}\n`);
+  writeJson({ jsonrpc: "2.0", id, error: { code, message } });
+}
+
+function writeJson(payload) {
+  const json = JSON.stringify(payload);
+  if (responseFraming === "header") {
+    stdout.write(`Content-Length: ${Buffer.byteLength(json, "utf8")}\r\n\r\n${json}`);
+  } else {
+    stdout.write(`${json}\n`);
+  }
 }
 
 function textContent(value) {
@@ -127,7 +142,7 @@ async function handle(message) {
       fail(id, -32602, `Unknown resource: ${params.uri}`);
       return;
     }
-    const text = fs.readFileSync("skills/pharos-atlas-council/SKILL.md", "utf8");
+    const text = fs.readFileSync(skillPath, "utf8");
     respond(id, {
       contents: [
         {
@@ -143,17 +158,57 @@ async function handle(message) {
   fail(id, -32601, `Unsupported method: ${method}`);
 }
 
-stdin.setEncoding("utf8");
 stdin.on("data", (chunk) => {
-  buffer += chunk;
-  const lines = buffer.split(/\r?\n/);
-  buffer = lines.pop() || "";
-  for (const line of lines) {
-    if (!line.trim()) continue;
-    try {
-      handle(JSON.parse(line)).catch((error) => fail(null, -32000, error.message));
-    } catch (error) {
-      fail(null, -32700, error.message);
+  buffer = Buffer.concat([buffer, Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)]);
+  parseBuffer();
+});
+
+function parseBuffer() {
+  while (buffer.length > 0) {
+    const text = buffer.toString("utf8");
+    if (text.startsWith("Content-Length:")) {
+      const headerEnd = text.indexOf("\r\n\r\n");
+      if (headerEnd === -1) return;
+
+      const header = text.slice(0, headerEnd);
+      const match = header.match(/Content-Length:\s*(\d+)/i);
+      if (!match) {
+        fail(null, -32700, "Missing Content-Length header.");
+        buffer = Buffer.alloc(0);
+        return;
+      }
+
+      const contentLength = Number(match[1]);
+      const bodyStart = Buffer.byteLength(text.slice(0, headerEnd + 4), "utf8");
+      if (buffer.length < bodyStart + contentLength) return;
+
+      responseFraming = "header";
+      const body = buffer.subarray(bodyStart, bodyStart + contentLength).toString("utf8");
+      buffer = buffer.subarray(bodyStart + contentLength);
+      dispatchJson(body);
+      continue;
+    }
+
+    const newlineIndex = text.search(/\r?\n/);
+    if (newlineIndex === -1) return;
+
+    const line = text.slice(0, newlineIndex).trim();
+    const newlineLength = text[newlineIndex] === "\r" && text[newlineIndex + 1] === "\n" ? 2 : 1;
+    const consumed = Buffer.byteLength(text.slice(0, newlineIndex + newlineLength), "utf8");
+    buffer = buffer.subarray(consumed);
+    if (line) {
+      responseFraming = "line";
+      dispatchJson(line);
     }
   }
-});
+}
+
+function dispatchJson(json) {
+  try {
+    const parsed = JSON.parse(json);
+    const result = handle(parsed);
+    if (result?.catch) result.catch((error) => fail(parsed.id ?? null, -32000, error.message));
+  } catch (error) {
+    fail(null, -32700, error.message);
+  }
+}

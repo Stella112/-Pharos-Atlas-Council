@@ -16,7 +16,7 @@
     "demo:yield": "node demos/run-demo.js demos/stable-yield-goal.json",
     "demo:unsafe": "node demos/run-demo.js demos/unsafe-transfer-action.json",
     "mcp": "node mcp/server.js",
-    "test": "node test/sdk.test.js"
+    "test": "node test/sdk.test.js && node test/mcp-smoke.test.js"
   },
   "keywords": [
     "pharos",
