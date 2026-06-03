@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pharos Atlas Council"
+  short_description: "RealFi council with Sentinel safety gates"
+  default_prompt: "Use $pharos-atlas-council to evaluate a Pharos RealFi goal and block unsafe execution with Sentinel Shield."

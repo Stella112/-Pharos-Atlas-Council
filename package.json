@@ -1,0 +1,31 @@
+{
+  "name": "pharos-atlas-council",
+  "version": "0.1.0",
+  "description": "A Pharos Skill, SDK, and MCP server for safety-gated RealFi council decisions.",
+  "type": "module",
+  "main": "sdk/index.js",
+  "types": "sdk/index.d.ts",
+  "exports": {
+    ".": "./sdk/index.js"
+  },
+  "bin": {
+    "pharos-atlas-mcp": "./mcp/server.js"
+  },
+  "scripts": {
+    "demo": "node demos/run-demo.js",
+    "demo:yield": "node demos/run-demo.js demos/stable-yield-goal.json",
+    "demo:unsafe": "node demos/run-demo.js demos/unsafe-transfer-action.json",
+    "mcp": "node mcp/server.js",
+    "test": "node test/sdk.test.js"
+  },
+  "keywords": [
+    "pharos",
+    "agent-center",
+    "skill",
+    "mcp",
+    "realfi",
+    "rwa",
+    "ai-agents"
+  ],
+  "license": "MIT"
+}

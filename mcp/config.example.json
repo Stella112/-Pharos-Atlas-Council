@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "pharos-atlas-council": {
+      "command": "node",
+      "args": ["mcp/server.js"]
+    }
+  }
+}

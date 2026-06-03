@@ -1,0 +1,56 @@
+{
+  "goal": "Generate stable 7-9% annualized RealFi yield while preserving liquidity and privacy.",
+  "network": "pharos-atlantic-testnet",
+  "wallet": "0x0000000000000000000000000000000000000000",
+  "capitalAmount": "10000 USDC",
+  "targetReturn": "7-9% annualized",
+  "riskTolerance": "moderate",
+  "timeHorizon": "90 days",
+  "liquidityNeed": "Can exit within 7 days",
+  "complianceRequirements": [
+    "KYC-compatible",
+    "No sanctioned counterparties",
+    "Prefer ZK/privacy-preserving attestations"
+  ],
+  "crossChainAllowed": true,
+  "candidates": [
+    {
+      "name": "Conservative RWA Yield Vault",
+      "yieldQuality": 9,
+      "capitalPreservation": 8,
+      "liquidity": 8,
+      "complianceReadiness": 8,
+      "executionSafety": 8,
+      "marketTiming": 8,
+      "councilConsensus": 8,
+      "memoryPenalty": 1,
+      "gates": {
+        "compliance": true,
+        "risk": true,
+        "execution": true,
+        "userConstraints": true,
+        "dataFreshness": true
+      },
+      "notes": "Best candidate if live contract and liquidity checks pass."
+    },
+    {
+      "name": "High APY Incentive Farm",
+      "yieldQuality": 5,
+      "capitalPreservation": 3,
+      "liquidity": 4,
+      "complianceReadiness": 2,
+      "executionSafety": 4,
+      "marketTiming": 5,
+      "councilConsensus": 3,
+      "memoryPenalty": 6,
+      "gates": {
+        "compliance": false,
+        "risk": false,
+        "execution": true,
+        "userConstraints": false,
+        "dataFreshness": true
+      },
+      "notes": "Rejected because headline APY is not enough to override liquidity and compliance failures."
+    }
+  ]
+}

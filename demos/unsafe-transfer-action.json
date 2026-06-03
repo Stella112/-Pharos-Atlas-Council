@@ -1,0 +1,21 @@
+{
+  "action": {
+    "type": "transfer",
+    "network": "pharos-atlantic-testnet",
+    "amountUsd": 5000,
+    "recipient": "0x1111111111111111111111111111111111111111",
+    "contractKnown": false,
+    "requiresCompliance": false,
+    "dataFresh": true,
+    "isWrite": true,
+    "userConfirmed": false
+  },
+  "policy": {
+    "allowedNetworks": [
+      "pharos-atlantic-testnet"
+    ],
+    "maxTransferUsd": 1000,
+    "unknownContractAction": "escalate",
+    "requireUserConfirmationForWrites": true
+  }
+}
