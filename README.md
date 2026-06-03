@@ -1,34 +1,42 @@
 # Pharos Atlas Council
 
-Pharos Atlas Council is a Pharos Agent Center Skill, JavaScript SDK, and MCP server for safety-gated RealFi decisions.
+**Pharos Atlas Council** is a safety-gated RealFi decision Skill for Pharos Agent Center.
 
-The core idea:
+Users describe a goal, such as:
 
-> Atlas proposes. Sentinel approves.
+> Evaluate a 7-9% RealFi yield strategy on Pharos while preserving liquidity and compliance safety.
 
-A user gives a high-level goal like "generate stable 7-9% RealFi yield while preserving liquidity and privacy." Atlas Council evaluates candidate strategies through specialized agents, scores them with a deterministic rubric, then Sentinel Shield blocks or escalates unsafe execution before any onchain write.
+Atlas Council compares possible strategies through specialized agents, scores them with a deterministic rubric, and then uses **Sentinel Shield** to approve, block, or escalate execution before any onchain write.
 
-## What It Includes
+**Core idea:** Atlas proposes. Sentinel approves.
 
-- `skills/pharos-atlas-council`: Pharos Agent Center Skill package.
-- `sdk`: dependency-free JavaScript SDK for council scoring and Sentinel policy review.
-- `mcp/server.js`: stdio MCP server exposing Atlas/Sentinel tools.
-- `demos`: sample RealFi goal and unsafe transfer review.
+## What This Project Does
 
-## Why This Fits Pharos
+- Evaluates RealFi/RWA yield strategies for Pharos users.
+- Runs a six-agent council: Yield, Risk, Compliance, Bridge, Market, and Memory.
+- Scores candidate strategies with a transparent 100-point rubric.
+- Applies Sentinel Shield policy gates before execution.
+- Blocks unsafe transactions, excessive transfers, stale data, missing compliance, and unconfirmed writes.
+- Produces decision artifacts: Trade Credit Report, Compliance Receipt, Accountability Ledger, and Mistake Memory.
 
-Pharos Agent Center already enables natural language onchain actions such as balance checks, transactions, contract reads/writes, gas estimation, deployment, ERC20 actions, and batch transfers. Atlas Council adds a decision and safety layer before those actions:
+## Repository Structure
 
-- RealFi/RWA strategy evaluation,
-- compliance and ZK/privacy-aware receipts,
-- risk and liquidity scoring,
-- bridge and market condition checks,
-- policy-based transaction blocking,
-- agent accountability ledger.
+```text
+.
+├── skills/pharos-atlas-council/   # Pharos Agent Center Skill
+├── sdk/                           # JavaScript SDK
+├── mcp/                           # stdio MCP server
+├── demos/                         # runnable demo inputs
+├── test/                          # SDK tests
+├── SUBMISSION.md                  # Discord submission draft
+└── README.md
+```
 
-## Quick Start
+## Quick Demo
 
-Run the tests:
+No package install is required for the core demo.
+
+Run tests:
 
 ```bash
 npm test
@@ -40,15 +48,54 @@ Run the RealFi council demo:
 npm run demo:yield
 ```
 
-Run the unsafe transaction review:
+Run the Sentinel safety demo:
 
 ```bash
 npm run demo:unsafe
 ```
 
-No dependency install is required for the core demo.
+Expected result:
+
+- The council conditionally recommends the conservative RealFi/RWA strategy.
+- The high-APY risky strategy is rejected or downgraded.
+- Sentinel Shield refuses to execute until user confirmation is provided.
+- The unsafe transfer demo is blocked because it exceeds the policy limit.
+
+## Skill Installation
+
+Copy the Skill folder into the Pharos Skill Engine skills directory:
+
+```text
+skills/pharos-atlas-council
+```
+
+Invoke it with:
+
+```text
+Use $pharos-atlas-council to evaluate a Pharos RealFi goal and block unsafe execution with Sentinel Shield.
+```
+
+## Example User Prompt
+
+```text
+Evaluate whether I should allocate 10,000 USDC into a 7-9% RealFi yield strategy on Pharos. I need 7-day liquidity and compliance-safe execution.
+```
+
+The Skill returns:
+
+1. Decision summary
+2. Sentinel Shield decision
+3. Trade Credit Report
+4. Council debate
+5. Shield gate table
+6. Compliance Receipt
+7. Agent Accountability Ledger
+8. Execution checklist
+9. Mistake Memory entry
 
 ## SDK Usage
+
+The SDK is dependency-free and can be imported by agent apps or developer tools.
 
 ```js
 import { reviewAction, runCouncil, scoreStrategies } from "pharos-atlas-council";
@@ -57,12 +104,12 @@ const scores = scoreStrategies({
   candidates: [
     {
       name: "Conservative RWA Yield Vault",
-      yieldQuality: 8,
+      yieldQuality: 9,
       capitalPreservation: 8,
       liquidity: 8,
       complianceReadiness: 8,
       executionSafety: 8,
-      marketTiming: 7,
+      marketTiming: 8,
       councilConsensus: 8,
       memoryPenalty: 1,
       gates: {
@@ -94,13 +141,13 @@ Start the stdio MCP server:
 npm run mcp
 ```
 
-Available MCP tools:
+Available tools:
 
-- `atlas_score_strategies`: score RealFi/RWA strategy candidates.
+- `atlas_score_strategies`: score RealFi/RWA candidates.
 - `sentinel_review_action`: approve, block, or escalate a planned onchain action.
 - `atlas_run_council`: run council scoring and Sentinel Shield together.
 
-Example MCP client config:
+Example MCP config:
 
 ```json
 {
@@ -113,39 +160,16 @@ Example MCP client config:
 }
 ```
 
-## Skill Installation
-
-Copy this folder into the Pharos Skill Engine skills directory:
-
-```text
-skills/pharos-atlas-council
-```
-
-Then invoke:
-
-```text
-Use $pharos-atlas-council to evaluate a Pharos RealFi goal and block unsafe execution with Sentinel Shield.
-```
-
-## Demo Story
-
-Prompt:
-
-```text
-Evaluate whether I should allocate 10,000 USDC into a 7-9% RealFi yield strategy on Pharos. I need 7-day liquidity and compliance-safe execution.
-```
-
-Expected behavior:
-
-1. Atlas Council compares a conservative RWA strategy and a risky high-APY strategy.
-2. The risky strategy is rejected for liquidity, compliance, and memory-risk reasons.
-3. The conservative strategy receives a conditional recommendation.
-4. Sentinel Shield escalates instead of executing because write actions require explicit confirmation.
-5. The output includes a Trade Credit Report, Compliance Receipt, Agent Accountability Ledger, and Mistake Memory.
-
 ## Safety Model
 
-Atlas Council is read-only by default. It does not request private keys in advisory mode and does not execute transactions from council output alone.
+Atlas Council is read-only by default.
+
+It does not:
+
+- request private keys in advisory mode,
+- print private keys,
+- execute write actions without explicit user confirmation,
+- treat high APY as enough reason to bypass risk or compliance gates.
 
 Sentinel Shield blocks or escalates:
 
@@ -154,22 +178,21 @@ Sentinel Shield blocks or escalates:
 - stale data,
 - missing compliance,
 - transfer or allocation limits,
-- write actions without user confirmation,
-- any private-key request or wallet-drain pattern.
+- unconfirmed write actions,
+- private-key requests,
+- wallet-drain patterns.
+
+## Supported Frameworks
+
+- Pharos Skill Engine
+- Codex/OpenAI-compatible Skills
+- JavaScript SDK consumers
+- stdio MCP clients
 
 ## Campaign Submission
 
-Skill name:
-`pharos-atlas-council`
+A ready-to-edit campaign submission message is included in:
 
-Short description:
-Pharos Atlas Council is a multi-agent RealFi decision Skill for Pharos Agent Center. Atlas evaluates RealFi/RWA strategies through Yield, Risk, Compliance, Bridge, Market, and Memory agents, then Sentinel Shield approves, blocks, or escalates execution based on safety, compliance, budget, and user policy gates.
-
-Instructions:
-Run `npm test`, then `npm run demo:yield` and `npm run demo:unsafe`. Install the Skill by copying `skills/pharos-atlas-council` into the Pharos Skill Engine skills directory. MCP clients can run `npm run mcp`.
-
-Supported framework:
-Pharos Skill Engine, Codex/OpenAI-compatible Skills, and stdio MCP clients.
-
-Dependencies:
-Node.js 18+ recommended. No package install is required for the core demo.
+```text
+SUBMISSION.md
+```
