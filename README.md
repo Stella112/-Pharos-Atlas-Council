@@ -101,6 +101,12 @@ Run the Sentinel safety demo:
 npm run demo:unsafe
 ```
 
+Run the full video demo flow:
+
+```bash
+npm run demo:video
+```
+
 Expected result:
 
 - Atlas conditionally recommends the conservative RealFi/RWA strategy.
@@ -242,4 +248,10 @@ A ready-to-edit campaign submission message is included in:
 
 ```text
 SUBMISSION.md
+```
+
+A short recording guide is included in:
+
+```text
+DEMO.md
 ```
