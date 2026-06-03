@@ -15,11 +15,30 @@ The council is paired with **Sentinel Shield**, a final safety layer that approv
 ## What This Project Does
 
 - Evaluates RealFi/RWA yield strategies for Pharos users.
+- Helps agents decide whether a RealFi, DeFi, bridge, transfer, or contract interaction plan is safe enough to continue.
 - Runs a six-agent council: Yield Scout, Risk Steward, Compliance Shield, Bridge Navigator, Market Oracle, and Memory Keeper.
 - Scores candidate strategies with a transparent 100-point rubric.
 - Applies Sentinel Shield policy gates before execution.
 - Blocks unsafe transactions, excessive transfers, stale data, missing compliance, and unconfirmed writes.
 - Produces decision artifacts: Trade Credit Report, Compliance Receipt, Accountability Ledger, and Mistake Memory.
+
+## Campaign Fit
+
+Atlas Council fits the Pharos Skill Builder campaign as a **RealFi product interaction Skill**.
+
+It also overlaps with these suggested categories:
+
+- **DeFi position checker**: evaluates candidate yield/position strategies before action.
+- **Onchain analytics Skill**: turns strategy inputs, risk gates, and policy checks into a structured decision report.
+- **Smart contract interaction Skill**: reviews planned contract/write actions before execution.
+- **Testnet/mainnet activity helper**: treats testnet and mainnet differently, with mainnet requiring explicit confirmation.
+- **Developer debugging Skill**: explains why an agent action was blocked or escalated.
+
+The Skill is functional today in three ways:
+
+1. **Skill layer**: `skills/pharos-atlas-council/SKILL.md` gives Pharos Agent Center a complete workflow.
+2. **SDK layer**: `sdk/index.js` runs deterministic strategy scoring and Sentinel policy review.
+3. **MCP layer**: `mcp/server.js` exposes the same logic as MCP tools for agent clients.
 
 ## Atlas Council Agents
 
