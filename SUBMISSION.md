@@ -4,14 +4,14 @@ Skill name:
 `pharos-atlas-council`
 
 Short description:
-Pharos Atlas Council is a multi-agent RealFi decision Skill for Pharos Agent Center. Atlas evaluates RealFi/RWA strategies through Yield, Risk, Compliance, Bridge, Market, and Memory agents, then Sentinel Shield approves, blocks, or escalates execution based on safety, compliance, budget, data freshness, and user policy gates.
+Pharos Atlas Council is a RealFi Prime Broker Skill for Pharos Agent Center. Users state high-level capital goals such as stable yield, liquidity preservation, RWA exposure, or remittance treasury management. Atlas evaluates RealFi/RWA strategies through Yield Scout, Risk Steward, Compliance Shield, Bridge Navigator, Market Oracle, and Memory Keeper, then Sentinel Shield approves, blocks, or escalates execution based on safety, compliance, budget, data freshness, and user policy gates.
 
 Campaign category fit:
 Primary category: RealFi product interaction Skill.
 Also relevant to DeFi position checking, onchain analytics, smart contract interaction preflight, testnet/mainnet activity safety, and developer debugging.
 
 Functional proof:
-The repository includes a working JavaScript SDK, runnable demos, and a stdio MCP server. `npm test` verifies both SDK logic and MCP framing. `npm run demo:yield` runs a RealFi council decision. `npm run demo:unsafe` shows Sentinel Shield blocking an unsafe transfer.
+The repository includes a working JavaScript SDK, runnable demos, and a stdio MCP server. `npm test` verifies both SDK logic and MCP framing. `npm run demo:yield` runs a RealFi Prime Broker decision. `npm run demo:unsafe` shows Sentinel Shield blocking an unsafe transfer.
 
 GitHub link:
 https://github.com/Stella112/-Pharos-Atlas-Council
@@ -30,7 +30,7 @@ npm run demo:unsafe
 Instructions:
 1. Clone the repository.
 2. Run `npm test` to verify the SDK.
-3. Run `npm run demo:yield` to see Atlas Council evaluate a RealFi yield goal.
+3. Run `npm run demo:yield` to see Atlas Council act as a RealFi Prime Broker for a yield goal.
 4. Run `npm run demo:unsafe` to see Sentinel Shield block an unsafe transfer.
 5. Install the Skill by copying `skills/pharos-atlas-council` into the Pharos Skill Engine skills directory.
 6. For MCP clients, run `npm run mcp` or use `mcp/config.example.json`.

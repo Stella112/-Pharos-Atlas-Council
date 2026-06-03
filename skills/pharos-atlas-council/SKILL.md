@@ -1,19 +1,19 @@
 ---
 name: pharos-atlas-council
-description: Run a multi-agent RealFi decision council with Sentinel Shield safety gates for Pharos Agent Center. Use when a user asks an AI agent to evaluate RealFi strategies, RWA exposure, yield opportunities, liquidity preservation, remittance routes, compliance gates, bridge plans, portfolio actions, transaction safety, or autonomous onchain decisions on Pharos.
+description: Run a RealFi Prime Broker council with Sentinel Shield safety gates for Pharos Agent Center. Use when a user asks an AI agent to evaluate RealFi strategies, RWA exposure, yield opportunities, liquidity preservation, remittance routes, compliance gates, bridge plans, portfolio actions, transaction safety, or autonomous onchain decisions on Pharos.
 ---
 
 # Pharos Atlas Council
 
-Turn a high-level RealFi goal into an accountable Pharos decision. Atlas proposes strategies through a six-agent council. Sentinel Shield approves, blocks, or escalates execution before any onchain write.
+Turn a high-level RealFi goal into an accountable Pharos action plan. Atlas acts as a Prime Broker Skill for AI agents: it compares strategies, coordinates specialist review, prepares execution plans, and produces reports. Sentinel Shield approves, blocks, or escalates execution before any onchain write.
 
 ## Core Principle
 
-Atlas proposes. Sentinel approves.
+Atlas is the RealFi prime broker. Sentinel is the execution gate.
 
-Use the council for strategy reasoning and use Sentinel Shield as the final execution gate. Default to read-only analysis. Never send a transaction from council output alone.
+Use Atlas for prime-broker style strategy reasoning and use Sentinel Shield as the final execution gate. Default to read-only analysis. Never send a transaction from council output alone.
 
-## Council Flow
+## Prime Broker Flow
 
 1. Capture the user's goal, constraints, wallet/network, time horizon, capital size, liquidity need, compliance requirements, and risk tolerance.
 2. Build candidate strategies from user-provided assets, Pharos ecosystem context, or live protocol data available to the active agent.
@@ -31,12 +31,12 @@ Use the council for strategy reasoning and use Sentinel Shield as the final exec
 
 ## Council Members
 
-- Yield Agent: discovers and ranks RealFi/RWA opportunities.
-- Risk Agent: stress tests downside, liquidity, counterparty, oracle, and smart-contract risk.
-- Compliance Agent: enforces ZK/KYC/AML constraints and approval gates.
-- Bridge Agent: reviews cross-chain routing, route fees, timing, finality, and failure modes.
-- Market Agent: evaluates live conditions, slippage, volatility, rates, and data freshness.
-- Memory Agent: checks past mistakes and penalizes repeated unsafe patterns.
+- Yield Scout: discovers and ranks RealFi/RWA opportunities.
+- Risk Steward: stress tests downside, liquidity, counterparty, oracle, and smart-contract risk.
+- Compliance Shield: enforces ZK/KYC/AML constraints and approval gates.
+- Bridge Navigator: reviews cross-chain routing, route fees, timing, finality, and failure modes.
+- Market Oracle: evaluates live conditions, slippage, volatility, rates, and data freshness.
+- Memory Keeper: checks past mistakes and penalizes repeated unsafe patterns.
 - Sentinel Shield: final policy gate that approves, blocks, or escalates execution.
 
 ## Inputs

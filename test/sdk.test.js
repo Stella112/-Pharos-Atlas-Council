@@ -68,4 +68,7 @@ const council = runCouncil({
 assert.equal(council.topCandidate.name, "Safe RWA Vault");
 assert.equal(council.sentinel.decision, "escalate");
 
+const rendered = await import("../sdk/index.js").then(({ renderCouncilMarkdown }) => renderCouncilMarkdown(council));
+assert.match(rendered, /Prime Broker Report/);
+
 console.log("SDK tests passed");

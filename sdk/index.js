@@ -195,7 +195,7 @@ function buildArtifacts(payload, top, sentinel) {
 export function renderCouncilMarkdown(result) {
   const top = result.topCandidate;
   const lines = [
-    "# Pharos Atlas Council Report",
+    "# Pharos Atlas Council Prime Broker Report",
     "",
     `Goal: ${result.goal}`,
     `Network: ${result.network}`,

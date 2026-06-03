@@ -1,7 +1,7 @@
 {
   "name": "pharos-atlas-council",
   "version": "0.1.0",
-  "description": "A Pharos Skill, SDK, and MCP server for safety-gated RealFi council decisions.",
+  "description": "A Pharos Skill, SDK, and MCP server for safety-gated RealFi Prime Broker decisions.",
   "type": "module",
   "main": "sdk/index.js",
   "types": "sdk/index.d.ts",
