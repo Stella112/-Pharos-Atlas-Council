@@ -17,12 +17,15 @@ GitHub link:
 https://github.com/Stella112/-Pharos-Atlas-Council
 
 Email address:
-TODO: add your email before posting.
+[Add your email address before posting]
 
 Demo link, video, or screenshots:
-TODO: add demo video or screenshots. The repo includes runnable demos:
+[Add your demo video or screenshots link before posting]
+
+The repo includes runnable demos:
 
 ```bash
+npm run demo:video
 npm run demo:yield
 npm run demo:unsafe
 ```
@@ -30,10 +33,11 @@ npm run demo:unsafe
 Instructions:
 1. Clone the repository.
 2. Run `npm test` to verify the SDK.
-3. Run `npm run demo:yield` to see Atlas Council act as a RealFi Prime Broker for a yield goal.
-4. Run `npm run demo:unsafe` to see Sentinel Shield block an unsafe transfer.
-5. Install the Skill by copying `skills/pharos-atlas-council` into the Pharos Skill Engine skills directory.
-6. For MCP clients, run `npm run mcp` or use `mcp/config.example.json`.
+3. Run `npm run demo:video` to see the full demo flow.
+4. Run `npm run demo:yield` to see Atlas Council act as a RealFi Prime Broker for a yield goal.
+5. Run `npm run demo:unsafe` to see Sentinel Shield block an unsafe transfer.
+6. Install the Skill by copying `skills/pharos-atlas-council` into the Pharos Skill Engine skills directory.
+7. For MCP clients, run `npm run mcp` or use `mcp/config.example.json`.
 
 Supported framework:
 Pharos Skill Engine, Codex/OpenAI-compatible Skills, JavaScript SDK consumers, and stdio MCP clients.

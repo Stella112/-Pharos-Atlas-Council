@@ -250,6 +250,8 @@ A ready-to-edit campaign submission message is included in:
 SUBMISSION.md
 ```
 
+Before posting, add your email address and demo/screenshot link in `SUBMISSION.md`.
+
 A short recording guide is included in:
 
 ```text
