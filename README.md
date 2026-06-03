@@ -1,35 +1,53 @@
 # Pharos Atlas Council
 
-**Pharos Atlas Council** is a safety-gated RealFi decision Skill for Pharos Agent Center.
+**Pharos Atlas Council** is a multi-agent RealFi council for Pharos Agent Center. It acts as an autonomous decision-making layer that helps users turn high-level financial goals into structured, safety-gated onchain plans.
 
 Users describe a goal, such as:
 
 > Evaluate a 7-9% RealFi yield strategy on Pharos while preserving liquidity and compliance safety.
 
-Atlas Council compares possible strategies through specialized agents, scores them with a deterministic rubric, and then uses **Sentinel Shield** to approve, block, or escalate execution before any onchain write.
+Atlas Council researches candidate opportunities, runs an internal debate between specialized agents, scores each strategy, applies ZK/compliance and risk gates, prepares execution plans, and learns from outcomes through a Mistake Memory Loop.
+
+The council is paired with **Sentinel Shield**, a final safety layer that approves, blocks, or escalates any proposed onchain action before execution. Atlas does not blindly execute. It prepares a plan, documents the reasoning, and requires Sentinel approval plus explicit user confirmation before any write action.
 
 **Core idea:** Atlas proposes. Sentinel approves.
 
 ## What This Project Does
 
 - Evaluates RealFi/RWA yield strategies for Pharos users.
-- Runs a six-agent council: Yield, Risk, Compliance, Bridge, Market, and Memory.
+- Runs a six-agent council: Yield Scout, Risk Steward, Compliance Shield, Bridge Navigator, Market Oracle, and Memory Keeper.
 - Scores candidate strategies with a transparent 100-point rubric.
 - Applies Sentinel Shield policy gates before execution.
 - Blocks unsafe transactions, excessive transfers, stale data, missing compliance, and unconfirmed writes.
 - Produces decision artifacts: Trade Credit Report, Compliance Receipt, Accountability Ledger, and Mistake Memory.
 
+## Atlas Council Agents
+
+- **Yield Scout**: discovers and ranks RealFi/RWA opportunities.
+- **Risk Steward**: stress tests strategies and recommends position sizing.
+- **Compliance Shield**: enforces ZK/KYC/AML and RealFi compliance gates.
+- **Bridge Navigator**: reviews LayerZero-style routing, cross-chain movement, fees, timing, and failure modes.
+- **Market Oracle**: checks market conditions, liquidity, volatility, rates, and data freshness.
+- **Memory Keeper**: tracks past decisions, mistakes, and recurring risk patterns.
+- **Sentinel Shield**: final approve/block/escalate layer before any onchain action.
+
+## Core Flow
+
+```text
+Goal -> Council Debate & Simulation -> Risk Scoring + ZK Gates -> Sentinel Shield -> Confirmed Execution Plan -> Monitoring & Memory
+```
+
 ## Repository Structure
 
 ```text
 .
-├── skills/pharos-atlas-council/   # Pharos Agent Center Skill
-├── sdk/                           # JavaScript SDK
-├── mcp/                           # stdio MCP server
-├── demos/                         # runnable demo inputs
-├── test/                          # SDK tests
-├── SUBMISSION.md                  # Discord submission draft
-└── README.md
+|-- skills/pharos-atlas-council/   # Pharos Agent Center Skill
+|-- sdk/                           # JavaScript SDK
+|-- mcp/                           # stdio MCP server
+|-- demos/                         # runnable demo inputs
+|-- test/                          # SDK tests
+|-- SUBMISSION.md                  # Discord submission draft
+`-- README.md
 ```
 
 ## Quick Demo
