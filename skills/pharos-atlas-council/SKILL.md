@@ -13,6 +13,19 @@ Atlas is the RealFi prime broker. Sentinel is the execution gate.
 
 Use Atlas for prime-broker style strategy reasoning and use Sentinel Shield as the final execution gate. Default to read-only analysis. Never send a transaction from council output alone.
 
+## Prerequisites
+
+- **Node 18+** for the council SDK and MCP server. Analysis is read-only; no private key required.
+- A goal plus context (network, capital, risk tolerance). Network addresses resolve from `assets/networks.json`.
+
+## Capability Index
+
+| User Need | Capability | Detailed Instructions |
+| --- | --- | --- |
+| "evaluate a RealFi strategy", "compare yield / RWA options", "what should I do with this capital" | `node sdk/cli.js run-council <goal.json>` | → references/scoring-rubric.md |
+| "is this action safe to execute", "gate this transaction", "should I send this on Pharos" | `node sdk/cli.js review-action <action.json>` (Sentinel Shield) | → references/sentinel-policy.md |
+| "run the specialist council", "debate this plan from every angle" | `run-council` (six council roles) | → references/agent-prompts.md |
+
 ## Prime Broker Flow
 
 1. Capture the user's goal, constraints, wallet/network, time horizon, capital size, liquidity need, compliance requirements, and risk tolerance.
